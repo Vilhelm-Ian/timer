@@ -4,6 +4,7 @@ body {
 }
 
 .outer-circle {
+  box-sizing: border-box;
   width: 90%;
   position: absolute;
   z-index: 0;
@@ -12,10 +13,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border: solid 0.5rem white;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .inner-circle {
@@ -31,6 +31,14 @@ body {
 }
 
 .time {
-  font-size: 5rem;
+  font-size: clamp(5rem, 20vw, 10rem);
   color: white;
+}
+
+.buttons {
+  display: flex;
+}
+
+button {
+  width: 33%;
 }
