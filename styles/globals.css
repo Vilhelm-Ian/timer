@@ -6,6 +6,7 @@ body {
 .outer-circle {
   box-sizing: border-box;
   width: 90%;
+  max-width: 90vh;
   position: absolute;
   z-index: 0;
   border-radius: 50vw;
