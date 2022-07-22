@@ -5,6 +5,7 @@ import { useState, useMemo, useEffect } from "react";
 
 const Home: NextPage = () => {
   const [seconds, setSeconds] = useState(0);
+  const [miliseconds, setMiliSeconds] = useState(0);
   const [timeLimit, setTimeLimit] = useState(1);
   const [time, setTime] = useState(`${timeLimit}:00`);
 
@@ -19,19 +20,17 @@ const Home: NextPage = () => {
   }
 
   function calculateProgress(iterator: number, minutes: number) {
-    return 360 * (iterator / (minutes * 60));
+    return (360 * ((iterator + 1) / (minutes * 60))) / 10;
   }
 
   useEffect(() => {
     let i = 0;
     let interval = setInterval(() => {
-      if (timeLimit * 60 === i) {
-        console.log("hello");
-        clearInterval(interval);
-      }
-      setSeconds(i + 1);
+      if (timeLimit * 60 === i / 10) return clearInterval(interval);
+      if (i % 10 === 0) setSeconds((i + 1) / 10);
+      setMiliSeconds(i + 1);
       i += 1;
-    }, 1000);
+    }, 100);
   }, []);
 
   useEffect(() => {
@@ -40,8 +39,8 @@ const Home: NextPage = () => {
   }, [seconds]);
 
   let progress = useMemo(
-    () => calculateProgress(seconds, timeLimit),
-    [seconds]
+    () => calculateProgress(miliseconds, timeLimit),
+    [miliseconds]
   );
 
   return (
