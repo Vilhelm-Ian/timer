@@ -1,18 +1,36 @@
+body {
+  margin: 0;
+  background: red;
+}
+
 .outer-circle {
-  width: 50%;
+  width: 90%;
+  position: absolute;
   z-index: 0;
-  background: conic-gradient(red 300deg, blue 300deg);
-  border-radius: 50%;
+  border-radius: 50vw;
   aspect-ratio: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 0.5rem white;
 }
 
 .inner-circle {
   width: 95%;
   z-index: 1;
   background: gray;
-  border-radius: 50%;
+  border-radius: 50vw;
   aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: red;
+}
+
+.time {
+  font-size: 5rem;
+  color: white;
 }

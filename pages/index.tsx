@@ -1,18 +1,48 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import { useState, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 const Home: NextPage = () => {
-  const [progress, setProgress] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [timeLimit, setTimeLimit] = useState(1);
+  const [time, setTime] = useState(`${timeLimit}:00`);
+
+  function updateTime(time: string) {
+    let [minutes, seconds] = time.split(":").map((str) => Number(str));
+    seconds -= 1;
+    if (seconds < 0) {
+      [minutes, seconds] = minutes === 0 ? [0, 0] : [minutes - 1, 59];
+    }
+    if (seconds < 10) return `${minutes}:0${seconds}`;
+    return `${minutes}:${seconds}`;
+  }
+
+  function calculateProgress(iterator: number, minutes: number) {
+    return 360 * (iterator / (minutes * 60));
+  }
 
   useEffect(() => {
     let i = 0;
-    setInterval(() => {
-      setProgress(i);
+    let interval = setInterval(() => {
+      if (timeLimit * 60 === i) {
+        console.log("hello");
+        clearInterval(interval);
+      }
+      setSeconds(i + 1);
       i += 1;
-    }, 500);
+    }, 400);
   }, []);
+
+  useEffect(() => {
+    let new_time = updateTime(time);
+    setTime(new_time);
+  }, [seconds]);
+
+  let progress = useMemo(
+    () => calculateProgress(seconds, timeLimit),
+    [seconds]
+  );
 
   return (
     <div className={styles.container}>
@@ -27,7 +57,11 @@ const Home: NextPage = () => {
           background: `conic-gradient(red ${progress}deg, blue ${progress}deg)`,
         }}
       >
-        <div className="inner-circle"></div>
+        <div className="inner-circle">
+          <time className="time" dateTime="{time}">
+            {time}
+          </time>
+        </div>
       </div>
     </div>
   );
