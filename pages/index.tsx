@@ -31,7 +31,7 @@ const Home: NextPage = () => {
       }
       setSeconds(i + 1);
       i += 1;
-    }, 400);
+    }, 1000);
   }, []);
 
   useEffect(() => {
