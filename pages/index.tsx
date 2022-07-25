@@ -33,7 +33,7 @@ const Home: NextPage = () => {
     setSeconds(0);
     setMiliSeconds(0);
     let i = 0;
-    let interval = setInterval(() => {
+    let interval: any = setInterval(() => {
       if (timeLimit * 60 === i / 10) return clearInterval(interval);
       if (i % 10 === 0) setSeconds((i + 1) / 10);
       setMiliSeconds(i + 1);
